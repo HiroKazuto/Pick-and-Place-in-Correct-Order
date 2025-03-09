@@ -55,11 +55,14 @@ public class ObjectInteractionScript : MonoBehaviour
                 }
                 if(boxInHand)
                 {
-                    if(Input.GetKeyDown(KeyCode.Q))
+                    if(Input.GetKey(KeyCode.A))
                     {
-                        Debug.Log("Q");
                         RotateObject(Vector3.up);
-                    } 
+                    }
+                    else if(Input.GetKey(KeyCode.D))
+                    {
+                        RotateObject(Vector3.down);
+                    }
                 }
                 
             }
