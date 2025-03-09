@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Interactable
   - Object
+  - Box
   layers:
   - Default
   - TransparentFX
