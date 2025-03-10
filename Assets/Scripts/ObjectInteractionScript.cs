@@ -3,13 +3,15 @@ using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
 public class ObjectInteractionScript : MonoBehaviour
 {
     GameObject targetObject;
-    public Transform heldObject;
+    
     public Transform holdPoint;
     public static bool boxInHand = false;
+
     void OnTriggerEnter(Collider other) // to detect objects with a box collider set under Camera object
     {
         if (other.CompareTag("Player"))
@@ -20,12 +22,15 @@ public class ObjectInteractionScript : MonoBehaviour
         if(other.gameObject.CompareTag("Object"))
         {
             targetObject = other.gameObject;
-            
         }
 
         if(other.gameObject.CompareTag("Box"))
         {
             targetObject = other.gameObject;
+        }
+        else
+        {
+            targetObject = null;
         }
         Debug.Log("Triggered by "+ other.gameObject.name);
         Debug.Log("Trigger");
@@ -46,23 +51,27 @@ public class ObjectInteractionScript : MonoBehaviour
             {
                 if(targetObject.tag == "Box")//to pick up boxes
                 {
+                    
                     if(!boxInHand)
                     {
+                        Debug.Log("Box rotation:"+targetObject.transform.eulerAngles.y);//debug
                         boxInHand = true;
                         HoldObject();
-                           
                     }
                 }
                 if(boxInHand)
                 {
+
                     if(Input.GetKey(KeyCode.A))
-                    {
-                        RotateObject(Vector3.up);
-                    }
-                    else if(Input.GetKey(KeyCode.D))
                     {
                         RotateObject(Vector3.down);
                     }
+                    else if(Input.GetKey(KeyCode.D))
+                    {
+                        RotateObject(Vector3.up);
+                    }
+
+                    
                 }
                 
             }
@@ -75,13 +84,12 @@ public class ObjectInteractionScript : MonoBehaviour
                     {
                         boxInHand = false;
                         DropObject();
-                    }
+                        targetObject = null;
+                    }   
                 }
             }
             
-
             
-        
         }
     }
 
@@ -90,8 +98,6 @@ public class ObjectInteractionScript : MonoBehaviour
         targetObject.GetComponent<Rigidbody>().isKinematic = true;
         targetObject.transform.position = holdPoint.position;
         targetObject.transform.parent = holdPoint;
-
-        
     }
 
     void DropObject()
