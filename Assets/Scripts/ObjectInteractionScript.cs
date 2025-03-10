@@ -1,8 +1,5 @@
 using Unity.VisualScripting;
-using UnityEditor;
-using UnityEditor.Callbacks;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 
 public class ObjectInteractionScript : MonoBehaviour
