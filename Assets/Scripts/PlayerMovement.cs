@@ -12,18 +12,21 @@ public class PlayerMovement : MonoBehaviour
     float horizontal;
     float vertical;
     float turnSmoothVelocity;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    
-    // Update is called once per frame
+    void Start()
+    {
+        characterController = GetComponent<CharacterController>();
+        cam = Camera.main.transform;
+    }
     void Update()
     {   
-            if(!ObjectInteractionScript.boxInHand)
+            if(!ObjectInteractionScript.boxInHand)//to freeze Horizontal Input when the box is in hand to rotate the box
             {
                 horizontal = Input.GetAxisRaw("Horizontal");
             }
             vertical = Input.GetAxisRaw("Vertical");
             Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
-            if(direction.magnitude >= 0.1f)
+
+            if(direction.magnitude >= 0.1f)//math behind playermovement
             {
                 float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
                 float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);

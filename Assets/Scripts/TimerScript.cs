@@ -5,7 +5,7 @@ public class TimerScript : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public float timeRemaining = 10f;
-    public bool timerIsRunning = false;
+    public static bool timerIsRunning = false;
     public TextMeshProUGUI timeText;
     public Canvas TimesUpScrreen;
     public PauseScript pauseScript;
@@ -15,12 +15,12 @@ public class TimerScript : MonoBehaviour
         TimesUpScrreen.enabled = false;
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
-        if(timerIsRunning)
+        if(timerIsRunning)//timer
         {
-            if(timeRemaining > 0)
+            if(timeRemaining > 0)//to check if time is remaining
             {
                 timeRemaining -= Time.deltaTime;
                 DisplayTime(timeRemaining);
@@ -35,7 +35,7 @@ public class TimerScript : MonoBehaviour
         }
     }
 
-    void DisplayTime(float timeToDisplay)
+    void DisplayTime(float timeToDisplay)//to display time on UI
     {
         timeToDisplay = Mathf.Clamp(timeToDisplay, 0, Mathf.Infinity);
         int minutes = Mathf.FloorToInt(timeToDisplay / 60);
@@ -43,7 +43,7 @@ public class TimerScript : MonoBehaviour
         timeText.text = string.Format("{0:00}:{1:00}",minutes,seconds);
     }
 
-    void TimesUpScreenEnable()
+    void TimesUpScreenEnable()// to enable times up screen aka game over screen
     {
         TimesUpScrreen.enabled = true;
         pauseScript.PauseGame();

@@ -4,8 +4,8 @@ using UnityEngine.TextCore;
 public class DroppingAreaScript : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public static bool isInDroppingArea = false;
-    public static bool isInCorrectAngle = false;
+    public bool isInDroppingArea = false;
+    public bool isInCorrectAngle = false;
     public GameObject BoxInDroppingArea;
     float rotationY;
     
@@ -21,22 +21,28 @@ public class DroppingAreaScript : MonoBehaviour
             isInDroppingArea = true;
             BoxInDroppingArea = other.gameObject;
         }
-        
     }
-    void Start()
+    void OnTriggerExit(Collider other)
     {
-        
+        if(other.CompareTag("Box") && BoxInDroppingArea == other.gameObject)
+        {
+            isInDroppingArea = false;
+            isInCorrectAngle = false;
+            BoxInDroppingArea = null;
+        }
     }
     void Update()
     {
         
         if(isInDroppingArea)
         {
-            ObjectColorChange objectColorChange = BoxInDroppingArea.GetComponent<ObjectColorChange>();
-            Transform angle = BoxInDroppingArea.GetComponent<Transform>();
-            rotationY = angle.transform.eulerAngles.y;
-            
-                if(ObjectInteractionScript.boxInHand)
+            if(isInDroppingArea && BoxInDroppingArea != null)
+            {
+                ObjectColorChange objectColorChange = BoxInDroppingArea.GetComponent<ObjectColorChange>();
+                Transform angle = BoxInDroppingArea.GetComponent<Transform>();
+                rotationY = angle.transform.eulerAngles.y;
+                
+                if(ObjectInteractionScript.boxInHand == BoxInDroppingArea)
                 {
                     if(rotationY>360f)rotationY-=360f;
 
@@ -52,21 +58,23 @@ public class DroppingAreaScript : MonoBehaviour
                     }
                 }
 
-            else 
-            {
-                if(isInCorrectAngle)
+                else 
                 {
-                    //Debug.Log("Box name:" + BoxInDroppingArea.name);
-                    objectColorChange.resetColor();
-                    BoxInDroppingArea.tag = "Dropped Box";
-                    objectColorChange.enabled = false;
+                    if(isInCorrectAngle)
+                    {
+                        //Debug.Log("Box name:" + BoxInDroppingArea.name);
+                        objectColorChange.resetColor();
+                        BoxInDroppingArea.tag = "Dropped Box";
+                        objectColorChange.enabled = false;
+                    }
+                    else
+                    {
+                        objectColorChange.incorrectColor();
+                    }
+                    
                 }
-                else
-                {
-                    objectColorChange.incorrectColor();
-                }
-                
             }
+           
         }
         else{
             return;

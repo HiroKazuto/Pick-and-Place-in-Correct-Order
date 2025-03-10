@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 3509533333716667462}
   - component: {fileID: 4409536431632607141}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: PlayerHeadIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -245,7 +245,6 @@ GameObject:
   - component: {fileID: 158935093510833267}
   - component: {fileID: 2029336346485807299}
   - component: {fileID: 1816613145543952974}
-  - component: {fileID: 2265630789347941521}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -312,18 +311,3 @@ MonoBehaviour:
   cam: {fileID: 0}
   speed: 6
   turnSmoothTime: 0.1
---- !u!114 &2265630789347941521
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5442887880822248724}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed0a812618929a14c904e5e4fb865d1a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeRemaining: 10
-  timerIsRunning: 0
-  timeText: {fileID: 0}

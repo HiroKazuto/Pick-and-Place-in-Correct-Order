@@ -19,12 +19,12 @@ public class ObjectInteractionScript : MonoBehaviour
             return; // Exit the method without further processing to ignore player character from object targeting
         }
 
-        if(other.gameObject.CompareTag("Object"))
+        if(other.gameObject.CompareTag("Object"))// debugging purposes
         {
             targetObject = other.gameObject;
         }
 
-        if(other.gameObject.CompareTag("Box"))
+        if(other.gameObject.CompareTag("Box")) // to detect box object
         {
             targetObject = other.gameObject;
         }
@@ -59,7 +59,7 @@ public class ObjectInteractionScript : MonoBehaviour
                         HoldObject();
                     }
                 }
-                if(boxInHand)
+                if(boxInHand)  //box rotate
                 {
 
                     if(Input.GetKey(KeyCode.A))
@@ -78,7 +78,7 @@ public class ObjectInteractionScript : MonoBehaviour
 
             else if(Input.GetMouseButtonUp(0))
             {
-                if(targetObject.tag == "Box")//to pick up boxes
+                if(targetObject.tag == "Box")//to drop boxes
                 {
                     if(boxInHand)
                     {
@@ -93,20 +93,20 @@ public class ObjectInteractionScript : MonoBehaviour
         }
     }
 
-    void HoldObject()
+    void HoldObject()//picking up box
     {
         targetObject.GetComponent<Rigidbody>().isKinematic = true;
         targetObject.transform.position = holdPoint.position;
         targetObject.transform.parent = holdPoint;
     }
 
-    void DropObject()
+    void DropObject()//dropping box
     {
         targetObject.GetComponent<Rigidbody>().isKinematic = false;
         targetObject.transform.parent = null;
     }
 
-    void RotateObject(Vector3 direction)
+    void RotateObject(Vector3 direction)//box rotation
     {
         if(targetObject!=null)
         {
